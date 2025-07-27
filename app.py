@@ -3,15 +3,16 @@ from flask_cors import CORS
 from flasgger import Swagger
 from pymongo import MongoClient
 from config import Config
+from flask_cors import CORS
 import config
 import os
 
-# from controllers.login_controller import login_blueprint
+from neruko.controllers.focuslink_controller import focuslink_bp
 # from controllers.shop_controller import shop_bp
 # from controllers.file_controller import file_bp
 
 app = Flask(__name__)
-
+CORS(app)  # 允许所有来源访问
 
 # 初始化 Swagger 文档
 swagger = Swagger(app)
@@ -28,7 +29,7 @@ app.config.from_object(Config)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, Config.UPLOAD_FOLDER_NAME)
 
 # 注册接口蓝图
-# app.register_blueprint(login_blueprint)
+app.register_blueprint(focuslink_bp)
 # app.register_blueprint(file_bp)
 # app.register_blueprint(shop_bp)
 
