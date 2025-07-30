@@ -8,7 +8,7 @@ import config
 import os
 
 from neruko.controllers.focuslink_controller import focuslink_bp
-# from controllers.shop_controller import shop_bp
+from neruko.controllers.videowatch_controller import videowatch_bp
 # from controllers.file_controller import file_bp
 
 app = Flask(__name__)
@@ -30,7 +30,7 @@ app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, Config.UPLOAD_FOLDER_N
 
 # 注册接口蓝图
 app.register_blueprint(focuslink_bp)
-# app.register_blueprint(file_bp)
+app.register_blueprint(videowatch_bp)
 # app.register_blueprint(shop_bp)
 
 if __name__ == '__main__':

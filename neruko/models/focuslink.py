@@ -33,7 +33,7 @@ def find_by_date_and_title(date, title):
 # 根据id更新记录
 def update_folink(_id, date, title, links):
     result = collection.update_one(
-        {"_id": _id},
+        {"_id": ObjectId(_id)},
         {"$set": {
             "date": date,
             "title": title,
