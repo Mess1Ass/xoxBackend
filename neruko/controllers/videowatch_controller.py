@@ -12,14 +12,6 @@ def get_weibo_video():
         return res, code
     return jsonify({"message": "success", "data": res}), code
 
-@videowatch_bp.route('/getvedio/b23', methods=['GET'])
-def get_bilibili_video():
-    b23_id = request.args.get("b23_id")
-    res, code = videoWatch_service.get_b23_vedio_detail(b23_id)
-    if(code != 200):
-        return res, code
-    return jsonify({"message": "success", "data": res}), code
-
 @videowatch_bp.route('/proxy')
 def proxy_video():
     video_url = request.args.get("url")
@@ -38,6 +30,16 @@ def proxy_video():
         )
     except Exception as e:
         return f"Error: {str(e)}", 500
+    
+@videowatch_bp.route('/getvedio/b23', methods=['GET'])
+def get_b23_video():
+    raw_url = request.args.get("url")
+    if not raw_url:
+        return jsonify({"error": "missing url"}), 400
+
+    data, code = videoWatch_service.get_video_url(raw_url)
+
+    return jsonify({"message": "success", "data": data}), code
 
 
 
