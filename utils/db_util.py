@@ -6,9 +6,11 @@ import config
 _client = MongoClient(config.MONGO_URI)
 _db = _client[config.MONGO_DB]
 
-def get_db():
+def get_db(name=None):
     """获取 MongoDB 数据库实例"""
-    return _db
+    if name:
+        return _client[name]
+    return _client[config.MONGO_DB]
 
 def get_collection(name=None):
     """

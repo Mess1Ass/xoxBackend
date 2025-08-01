@@ -9,7 +9,7 @@ import os
 
 from neruko.controllers.focuslink_controller import focuslink_bp
 from neruko.controllers.videowatch_controller import videowatch_bp
-# from controllers.file_controller import file_bp
+from public.controllers.iplogs_controller import iplogs_bp
 
 app = Flask(__name__)
 CORS(app)  # 允许所有来源访问
@@ -31,7 +31,7 @@ app.config["UPLOAD_FOLDER"] = os.path.join(app.root_path, Config.UPLOAD_FOLDER_N
 # 注册接口蓝图
 app.register_blueprint(focuslink_bp)
 app.register_blueprint(videowatch_bp)
-# app.register_blueprint(shop_bp)
+app.register_blueprint(iplogs_bp)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
