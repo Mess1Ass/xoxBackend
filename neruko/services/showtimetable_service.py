@@ -11,6 +11,10 @@ def insert_showlog(title, startTime, endTime, location):
 
     updateTime = int(time.time() * 1000)  # 毫秒时间戳
     
+    exist = showtimetable.find_by_startTime(startTime)
+    if exist:
+        return {"error": "已存在相同开始时间的记录"}, 400
+
     """插入演出记录"""
     try:
         res = showtimetable.insert_showlog(title, startTime, endTime, location, updateTime)
