@@ -6,11 +6,10 @@ from urllib.parse import urlparse
 
 
 
-def get_ip_location():
-
-    """获取 IP 地址对应的地理位置（使用 ip-api）"""
+def get_ip_location(ip):
+    """根据传入的 IP 地址获取对应的地理位置（使用 ip-api）"""
     try:
-        res = requests.get(f"http://ip-api.com/json/", timeout=5)
+        res = requests.get(f"http://ip-api.com/json/{ip}", timeout=5)
         data = res.json()
         if data["status"] == "success":
             return {
@@ -24,11 +23,12 @@ def get_ip_location():
         return {"error": data.get("message", "未知错误")}, 500
     except Exception as e:
         return {"error": str(e)}, 500
+
     
     
 def insert_iplog(ip, domain):
     timestamp_ms = int(time.time() * 1000)  # 毫秒时间戳
-    location, code = get_ip_location()
+    location, code = get_ip_location(ip)
     if code != 200:
         return location, code
     

@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from utils.db_util import get_collection
 import datetime
+import time
 
 
 collection = get_collection("FocusLinks")
@@ -13,7 +14,8 @@ def insert_folink(date, title, links):
     result = collection.insert_one({
         "date": date,
         "title": title,
-        "links": links
+        "links": links,
+        "updateTime": int(time.time() * 1000)
     })
     return result.inserted_id
 
@@ -37,7 +39,8 @@ def update_folink(_id, date, title, links):
         {"$set": {
             "date": date,
             "title": title,
-            "links": links
+            "links": links,
+            "updateTime": int(time.time() * 1000)
         }},
         upsert=True
     )
