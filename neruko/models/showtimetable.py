@@ -34,7 +34,9 @@ def find_earliest_showlog(today):
     )
     return serialize_doc(doc)
 
-
+#重复校验用
+def find_by_startTime(startTime):
+    return collection.find_one({"startTime": startTime})
 # 根据日期和标题查找记录
 def find_by_id(_id):
     return collection.find_one({"_id": ObjectId(_id)})
