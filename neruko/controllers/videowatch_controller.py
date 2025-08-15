@@ -18,18 +18,27 @@ def proxy_video():
     if not video_url:
         return "Missing url", 400
 
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0"
+        ),
+        "Referer": "https://weibo.com/"
+    }
     try:
-        headers = {
-            "User-Agent": "Mozilla/5.0",
-            "Referer": "https://weibo.com/"  # 必要，防盗链要求
-        }
         r = requests.get(video_url, headers=headers, stream=True, timeout=10)
+
+        if r.status_code != 200:
+            return Response("视频获取失败", status=500)
+
         return Response(
             r.iter_content(chunk_size=4096),
-            content_type=r.headers.get("Content-Type", "video/mp4")
+            mimetype="video/mp4",
+            direct_passthrough=True
         )
     except Exception as e:
-        return f"Error: {str(e)}", 500
+        return Response(f"请求视频时出错: {e}", status=500)
     
 @videowatch_bp.route('/getvedio/b23', methods=['GET'])
 def get_b23_video():
