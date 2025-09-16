@@ -1,11 +1,11 @@
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from utils.db_util import get_collection
+from utils.db_util import (get_collection, get_db)
 import datetime
 
 
-
-collection = get_collection("ShowTimeTable", db_name="Neruko")
+db = get_db("Natsumi")
+collection = db.get_collection("ShowTimeTable")
 
 def insert_showlog(title, startTime, endTime, location, updateTime):
     result = collection.insert_one({

@@ -5,10 +5,10 @@ import datetime
 
 
 
-collection = get_collection("IpLogs")
+nerukoCollection = get_collection("IpLogs", db_name="Neruko")
 
 def insert_iplog(ip, timestamp_ms, location, domain):
-    result = collection.insert_one({
+    result = nerukoCollection.insert_one({
         "ip": ip,
         "timestamp_ms": timestamp_ms,
         "location": location,
@@ -23,20 +23,20 @@ def serialize_doc(doc):
 
 # 查看全部直拍
 def find_all():
-    return [serialize_doc(doc) for doc in collection.find()]
+    return [serialize_doc(doc) for doc in nerukoCollection.find()]
 
 # 获取指定域名的访问次数
 def get_iplog_cnt(domain):
-    return collection.count_documents({'domain': domain})
+    return nerukoCollection.count_documents({'domain': domain})
 
 
 # 根据日期和标题查找记录
 def find_by_date_and_title(date, title):
-    return collection.find_one({"date": date, "title": title})
+    return nerukoCollection.find_one({"date": date, "title": title})
 
 # 根据id更新记录
 def update_iplog(_id, date, title, links):
-    result = collection.update_one(
+    result = nerukoCollection.update_one(
         {"_id": ObjectId(_id)},
         {"$set": {
             "date": date,
@@ -49,4 +49,4 @@ def update_iplog(_id, date, title, links):
 
 # 根据id删除记录
 def delete_iplog(_id):
-    return collection.delete_one({"_id": ObjectId(_id)})
+    return nerukoCollection.delete_one({"_id": ObjectId(_id)})

@@ -5,7 +5,7 @@ import datetime
 import time
 
 
-collection = get_collection("FocusLinks")
+collection = get_collection("FocusLinks", db_name="Neruko")
 
 # link结构:[{url, label}]
 
