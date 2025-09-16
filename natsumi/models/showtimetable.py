@@ -4,8 +4,7 @@ from utils.db_util import (get_collection, get_db)
 import datetime
 
 
-db = get_db("Natsumi")
-collection = db.get_collection("ShowTimeTable")
+collection = get_collection("ShowTimeTable", db_name="Natsumi")
 
 def insert_showlog(title, startTime, endTime, location, updateTime):
     result = collection.insert_one({

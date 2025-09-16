@@ -11,6 +11,7 @@ from neruko.controllers.focuslink_controller import focuslink_bp
 from neruko.controllers.videowatch_controller import videowatch_bp
 from public.controllers.iplogs_controller import iplogs_bp
 from neruko.controllers.showtimetable_controller import showlogs_bp
+from natsumi.controllers.showtimetable_controller import showlogs_bp_natsumi
 
 app = Flask(__name__)
 CORS(app)  # 允许所有来源访问
@@ -34,6 +35,7 @@ app.register_blueprint(focuslink_bp)
 app.register_blueprint(videowatch_bp)
 app.register_blueprint(iplogs_bp)
 app.register_blueprint(showlogs_bp)
+app.register_blueprint(showlogs_bp_natsumi)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)

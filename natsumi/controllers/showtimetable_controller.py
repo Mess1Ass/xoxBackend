@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify, Response
 import requests
 from natsumi.services import showtimetable_service
 
-showlogs_bp = Blueprint("showlogs_bp", __name__)
+showlogs_bp_natsumi = Blueprint("showlogs_bp_natsumi", __name__)
 
-@showlogs_bp.route("/insertShowLog", methods=["POST"])
+@showlogs_bp_natsumi.route("/natsumi/insertShowLog", methods=["POST"])
 def insert_showlog():
     data = request.json or {}
     endTime = data.get("endTime")
@@ -17,7 +17,7 @@ def insert_showlog():
         return jsonify(res), code
     return jsonify({"message": "success", "data": res}), code
 
-@showlogs_bp.route("/getShowLogs", methods=["GET"])
+@showlogs_bp_natsumi.route("/natsumi/getShowLogs", methods=["GET"])
 def get_all_showlog():
 
     res, code = showtimetable_service.find_all_showlog()
@@ -25,14 +25,14 @@ def get_all_showlog():
         return jsonify(res), code
     return jsonify({"message": "success", "data": res}), code
 
-@showlogs_bp.route("/getEarliestShowLog", methods=["GET"])
+@showlogs_bp_natsumi.route("/natsumi/getEarliestShowLog", methods=["GET"])
 def get_earliest_showlog():
     res, code = showtimetable_service.find_earliest_showlog()
     if res != 200:
         return jsonify(res), code
     return jsonify({"message": "success", "data": res}), code
 
-@showlogs_bp.route("/updateShowLog", methods=["POST"])
+@showlogs_bp_natsumi.route("/natsumi/updateShowLog", methods=["POST"])
 def update_showlog():
     data = request.json or {}
     _id = data.get("_id")
@@ -50,7 +50,7 @@ def update_showlog():
         return jsonify(res), code
     return jsonify({"message": "success"}), code
 
-@showlogs_bp.route("/deleteShowLog", methods=["POST"])
+@showlogs_bp_natsumi.route("/natsumi/deleteShowLog", methods=["POST"])
 def delete_showlog():
     _id = request.args.get("id")  # 从 URL 参数中取出 id
 
