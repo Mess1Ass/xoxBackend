@@ -8,7 +8,7 @@ MAX_CONTENT_LENGTH = 200 * 1024 * 1024  # 最大20MB文件
 # 可选：你也可以添加数据库配置、CORS白名单等
 LOGIN_ENDPOINT = 'https://user.48.cn/QuickLogin/login/'
 
-MONGO_URI = "mongodb://admin:admin@106.14.212.1:27017"
+MONGO_URI = "mongodb://admin:Guan258357159@106.14.212.1:27017"
 MONGO_DB = "Neruko"
 MONGO_COLLECTION = "admin"
 
